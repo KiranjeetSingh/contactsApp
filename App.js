@@ -17,6 +17,8 @@ import {createDrawerNavigator} from 'react-navigation-drawer';
 import {createStackNavigator} from 'react-navigation-stack';
 import Contacts from './Contacts';
 import Favourites from './Favourites';
+import AddNewContact from './AddNewContact';
+import UpdateContact from './UpdateContact';
 
 class NavigationDrawerStructure extends Component {
   //Structure for the navigatin Drawer
@@ -44,14 +46,15 @@ const FirstActivity_StackNavigator = createStackNavigator({
   First: {
     screen: Contacts,
     navigationOptions: ({ navigation }) => ({
-      title: 'Demo Screen 1',
-      headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
+      title: 'Contacts',
+      headerLeft:() => <NavigationDrawerStructure navigationProps={navigation} />,
       headerStyle: {
         backgroundColor: '#FF9800',
       },
       headerTintColor: '#fff',
     }),
   },
+  
 });
 
 const Screen2_StackNavigator = createStackNavigator({
@@ -59,8 +62,8 @@ const Screen2_StackNavigator = createStackNavigator({
   Second: {
     screen: Favourites,
     navigationOptions: ({ navigation }) => ({
-      title: 'Demo Screen 2',
-      headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
+      title: 'Favourites',
+      headerLeft:() => <NavigationDrawerStructure navigationProps={navigation} />,
       headerStyle: {
         backgroundColor: '#FF9800',
       },
@@ -90,16 +93,32 @@ const DrawerNavigatorExample = createDrawerNavigator({
     //Title
     screen: FirstActivity_StackNavigator,
     navigationOptions: {
-      drawerLabel: 'Demo Screen 1',
+      drawerLabel: 'Contacts',
     },
   },
   Screen2: {
     //Title
     screen: Screen2_StackNavigator,
     navigationOptions: {
-      drawerLabel: 'Demo Screen 2',
+      drawerLabel: 'Favourites',
     },
   },
 });
-
-export default createAppContainer(DrawerNavigatorExample);
+const App = createStackNavigator(
+  {
+    
+    Drawer: {
+      screen:DrawerNavigatorExample, 
+     navigationOptions: { header: null } },
+  
+  
+    AddNewContact: {
+      screen: AddNewContact
+    },
+    UpdateContact: { 
+      screen: UpdateContact
+    }
+  }
+);
+//export default App;
+export default createAppContainer(App); 
